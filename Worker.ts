@@ -1,6 +1,5 @@
-import { BrowserWindow, WebContents } from 'electron'
+import { BrowserWindow, WebContents, Cookie } from 'electron'
 import { Inject_js_handler as IJH } from "./Inject_js_handler"
-import { Config_helper } from "./../Config_helper"
 import sleep from "sleep-promise"
 import pLimit from 'p-limit'
 import _ from "lodash"
@@ -581,26 +580,27 @@ export class Worker
     }
 
     /**
-     * 持久化存储所有cookie, 存储到conf文件中
+     * 读取所有cookie, 你可在接下来的操作中进行持久化存储所有cookie的操作
      *
+     * @returns {Promise<Array<any>>}
      * @memberof Worker
      */
-    async save_all_cookie_in_conf()
+    async get_all_cookie(): Promise<Array<any>>
     {
-        let cookies = await this.read_cookies()
-        Config_helper.getInstance().set({cookies: JSON.stringify(cookies)})
+        let cookies = <Array<any>>await this.read_cookies()
+        return (cookies);
     }
 
     /**
-     * 从conf文件中载入所有cookie
+     * 载入cookie
      *
      * @param {string} url 见electron中session.cookies.set方法参数
+     * @param {Array<any>} cookies cookie数组, 同见session.cookies
      * @memberof Worker
      */
-    async load_all_cookie_in_conf(url: string)
+    async load_all_cookie(url: string, cookies: Array<any>)
     {
-        let login_cookies:Array<any> = JSON.parse(Config_helper.getInstance().get("cookies"))
-        await this.set_cookies(url, login_cookies)
+        await this.set_cookies(url, cookies)
     }
 
     async set_cookies(url: string, cookies:Array<any> = [])
