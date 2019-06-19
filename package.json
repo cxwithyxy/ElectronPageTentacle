@@ -1,0 +1,20 @@
+{
+  "name": "ElectronPageTentacle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/cxwithyxy/ElectronPageTentacle.git",
+  "author": "chenxuan <523764720@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/lodash": "4.14.108",
+    "@types/p-limit": "^2.2.0",
+    "electron": "^5.0.4",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "forin_promise": "https://github.com/cxwithyxy/forin_promise.git",
+    "lodash": "4.17.5",
+    "p-limit": "^2.2.0",
+    "sleep-promise": "^8.0.1"
+  }
+}
