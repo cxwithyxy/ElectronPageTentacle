@@ -3,7 +3,7 @@ import { Inject_js_handler as IJH } from "./Inject_js_handler"
 import sleep from "sleep-promise"
 import pLimit from 'p-limit'
 import _ from "lodash"
-import forin_promise from '../base/forin_promise';
+import forin_promise from 'forin_promise';
 
 export class Worker
 {
