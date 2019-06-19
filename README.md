@@ -28,6 +28,12 @@ ElectronPageTentacle 讲道理是一个基于 electronjs 的爬虫框架
 
 
 
+## 示例DEMO
+
+[一个非常复杂的手机淘宝的金币庄园的收菜的浏览器自动操作示例](https://github.com/cxwithyxy/tjb)
+
+
+
 ## 关于 ElectronJS 来做爬虫的杂记
 
 [杂记或笔记](zaji.md)
