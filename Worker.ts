@@ -1,5 +1,5 @@
 import { BrowserWindow, WebContents } from 'electron'
-import { Inject_js_handler as IJH } from "./inject_js/Inject_js_handler"
+import { Inject_js_handler as IJH } from "./Inject_js_handler"
 import { Config_helper } from "./../Config_helper"
 import sleep from "sleep-promise"
 import pLimit from 'p-limit'
