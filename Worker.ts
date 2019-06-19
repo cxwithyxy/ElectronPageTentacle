@@ -13,6 +13,7 @@ export class Worker
     win_settings: object
     page_load_lock = false
     ua!: string
+    inject_js!: IJH
     
     /**
      * 控制worker是否会被垃圾回收
@@ -176,6 +177,12 @@ export class Worker
         Worker.add_worker(this)
     }
 
+    set_inject_js(_ijh: IJH)
+    {
+        this.inject_js = _ijh
+        return this
+    }
+
     /**
      * 把Worker置于等待垃圾回收队列中
      *
@@ -275,7 +282,7 @@ export class Worker
     async exec_js(js_code: string)
     {
         return await this.wincc.executeJavaScript(
-            IJH.getInstance().to_code_string(js_code)
+            this.inject_js.to_code_string(js_code)
         );
     }
 
