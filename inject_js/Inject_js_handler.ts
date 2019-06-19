@@ -1,11 +1,5 @@
 import { Singleton } from "../../base/Singleton";
 import _ from "lodash"
-import login from "./func_lib/login"
-import fuli from "./func_lib/fuli"
-import renwu from "./func_lib/renwu";
-import maomao618 from "./func_lib/maomao618";
-import touch_emulator from "./func_lib/touch_emulator";
-import zhuangyuan from "./func_lib/zhuangyuan";
 
 export class Inject_js_handler extends Singleton
 {
@@ -25,12 +19,27 @@ export class Inject_js_handler extends Singleton
     {
         super()
         this.codes_lib = {}
-        this.add_object(login)
-        this.add_object(fuli)
-        this.add_object(renwu)
-        this.add_object(touch_emulator)
-        this.add_object(zhuangyuan)
-        this.add_object(maomao618)
+        this.load_scripts([
+            "./func_lib/login",
+            "./func_lib/fuli",
+            "./func_lib/renwu",
+            "./func_lib/maomao618",
+            "./func_lib/touch_emulator",
+            "./func_lib/zhuangyuan"
+        ])
+    }
+
+    /**
+     * 读取注入脚本
+     *
+     * @param {Array<string>} 数组: 脚本的相对路径路径
+     * @memberof Inject_js_handler
+     */
+    load_scripts(script_paths: Array<string>)
+    {
+        script_paths.forEach(item => {
+            this.add_object(require(item))
+        });
     }
 
     add_object(_obj:Object){
