@@ -26,11 +26,23 @@ ElectronPageTentacle 讲道理是一个基于 electronjs 的爬虫框架
 
 心情不好，不写了！反正又没有钱，写教程是不可能写教程的了！！！
 
+#### 安装
+
+```
+yarn add https://github.com/cxwithyxy/ElectronPageTentacle.git
+```
+
+#### 使用方法
+
+看DEMO!!!
+
 
 
 ## 示例DEMO
 
 [一个非常复杂的手机淘宝的金币庄园的收菜的浏览器自动操作示例](https://github.com/cxwithyxy/tjb)
+
+[一个简单的抓取亚马逊搜索雨伞的第一个结果页面的所有雨伞信息的实例](https://github.com/cxwithyxy/Amazon_Crawler_Demo)
 
 
 
