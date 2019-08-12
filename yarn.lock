@@ -7,6 +7,11 @@
   resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
   integrity sha1-AmVq863S5bMXT4MIYsR0IcAO+Bc=
 
+"@types/mocha@^5.2.7":
+  version "5.2.7"
+  resolved "https://registry.npm.taobao.org/@types/mocha/download/@types/mocha-5.2.7.tgz#315d570ccb56c53452ff8638738df60726d5b6ea"
+  integrity sha1-MV1XDMtWxTRS/4Y4c432BybVtuo=
+
 "@types/node@^10.12.18":
   version "10.14.9"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-10.14.9.tgz#2e8d678039d27943ce53a1913386133227fd9066"

@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/lodash": "4.14.108",
+    "@types/mocha": "^5.2.7",
     "@types/p-limit": "^2.2.0",
     "electron": "^5.0.4",
     "mocha": "^6.2.0",
@@ -17,5 +18,8 @@
     "lodash": "4.17.5",
     "p-limit": "^2.2.0",
     "sleep-promise": "^8.0.1"
+  },
+  "scripts": {
+    "test": "tsc && mocha"
   }
 }
