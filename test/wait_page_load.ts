@@ -43,7 +43,7 @@ describe(`Worker`, function ()
 
         it(`应该一直等待直到页面加载完`, async () =>
         {
-            let server = await server_start(5e3)
+            let server = await server_start(3e3)
             await new Test_M().start(async (_w) =>
             {
                 _w.open_url("http://127.0.0.1:8181/")
