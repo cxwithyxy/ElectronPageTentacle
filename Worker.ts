@@ -543,6 +543,7 @@ export class Worker
     /**
      * 等待页面加载完成
      *
+     * @param {number} [timeout=10e3] 设置超时, 默认10s
      * @returns
      * @memberof Worker
      */
