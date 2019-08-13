@@ -10,7 +10,7 @@ class Inject_js_handler {
      * @param {Array<string>} 数组: 脚本的相对于inject_js_handler.js的相对路径
      * @memberof Inject_js_handler
      */
-    constructor(script_paths) {
+    constructor(script_paths = []) {
         this.codes_lib = {};
         this.load_scripts(script_paths);
     }

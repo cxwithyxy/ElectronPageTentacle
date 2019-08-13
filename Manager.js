@@ -10,7 +10,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Worker_1 = require("./Worker");
+const index_1 = require("./index");
 const _ = __importStar(require("lodash"));
 const p_limit_1 = __importDefault(require("p-limit"));
 class Manager {
@@ -25,18 +25,22 @@ class Manager {
             this.workers = [];
         }
     }
+    /**
+     * 默认初始化worker函数, 建议覆盖后写自己的逻辑
+     *
+     * @memberof Manager
+     */
     init_worker() {
         this.set_workers([
-            new Worker_1.Worker({
+            new index_1.Worker({
                 width: 800,
                 height: 600,
             })
         ]);
         this.workers_do(async (_w) => {
             _w.page_init();
+            _w.set_inject_js(new index_1.Inject_js_handler());
         });
-    }
-    start() {
     }
     set_main_worker(_w) {
         let main_worker = _.head(this.workers);
@@ -93,7 +97,7 @@ class Manager {
             if (_.isUndefined(setting)) {
                 setting = base_worker.win_settings;
             }
-            let temp_worker = new Worker_1.Worker(setting);
+            let temp_worker = new index_1.Worker(setting);
             temp_worker.set_inject_js(base_worker.inject_js);
             temp_worker.page_init();
             temp_worker.set_ua(base_worker.ua);

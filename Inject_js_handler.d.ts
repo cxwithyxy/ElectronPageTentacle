@@ -5,7 +5,7 @@ export declare class Inject_js_handler {
      * @param {Array<string>} 数组: 脚本的相对于inject_js_handler.js的相对路径
      * @memberof Inject_js_handler
      */
-    constructor(script_paths: Array<string>);
+    constructor(script_paths?: Array<string>);
     /**
      * 读取注入脚本
      *
