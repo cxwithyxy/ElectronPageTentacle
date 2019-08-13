@@ -543,16 +543,30 @@ export class Worker
     /**
      * 等待页面加载完成
      *
+     * @param {number} [timeout=10e3] 设置超时, 默认10s
      * @returns
      * @memberof Worker
      */
-    async wait_page_load()
+    async wait_page_load(timeout: number = 10e3)
     {
         this.page_load_lock = true
+        let timeout_alive = true
+        ;(async () =>
+        {
+            setTimeout(() => 
+            {
+                if(timeout_alive && this.page_load_lock)
+                {
+                    this.page_load_lock = false
+                    timeout_alive = false
+                }
+            }, timeout);
+        })()
         while(this.page_load_lock)
         {
             await sleep(100)
         }
+        timeout_alive = false
         return this
     }
 

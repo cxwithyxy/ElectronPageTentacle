@@ -1,8 +1,13 @@
-import { Worker } from "./Worker";
+import { Worker } from "./index";
 export declare class Manager {
     workers: Worker[];
     constructor(_w?: Worker | Worker[]);
-    start(): void;
+    /**
+     * 默认初始化worker函数, 建议覆盖后写自己的逻辑
+     *
+     * @memberof Manager
+     */
+    init_worker(): void;
     set_main_worker(_w: Worker): Manager;
     get_main_worker(): Worker;
     deliver_main_worker_to(_m: Manager): Manager;
