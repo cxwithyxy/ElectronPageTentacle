@@ -1,14 +1,20 @@
 {
   "name": "ElectronPageTentacle",
-  "version": "1.0.0",
+  "version": "1.201908131352.0",
   "main": "index.js",
   "repository": "https://github.com/cxwithyxy/ElectronPageTentacle.git",
   "author": "chenxuan <523764720@qq.com>",
   "license": "MIT",
   "devDependencies": {
+    "@hapi/hapi": "^18.3.1",
+    "@types/hapi__hapi": "^18.2.5",
     "@types/lodash": "4.14.108",
+    "@types/mocha": "^5.2.7",
     "@types/p-limit": "^2.2.0",
+    "@types/should": "^13.0.0",
     "electron": "^5.0.4",
+    "electron-mocha": "^8.1.1",
+    "should": "^13.2.3",
     "typescript": "^3.5.2"
   },
   "dependencies": {
@@ -16,5 +22,8 @@
     "lodash": "4.17.5",
     "p-limit": "^2.2.0",
     "sleep-promise": "^8.0.1"
+  },
+  "scripts": {
+    "test": "tsc && electron-mocha test/*.js"
   }
 }

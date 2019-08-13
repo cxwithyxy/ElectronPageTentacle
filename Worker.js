@@ -1,7 +1,7 @@
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
-}
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const sleep_promise_1 = __importDefault(require("sleep-promise"));
@@ -416,14 +416,25 @@ class Worker {
     /**
      * 等待页面加载完成
      *
+     * @param {number} [timeout=10e3] 设置超时, 默认10s
      * @returns
      * @memberof Worker
      */
-    async wait_page_load() {
+    async wait_page_load(timeout = 10e3) {
         this.page_load_lock = true;
+        let timeout_alive = true;
+        (async () => {
+            setTimeout(() => {
+                if (timeout_alive && this.page_load_lock) {
+                    this.page_load_lock = false;
+                    timeout_alive = false;
+                }
+            }, timeout);
+        })();
         while (this.page_load_lock) {
             await sleep_promise_1.default(100);
         }
+        timeout_alive = false;
         return this;
     }
     /**

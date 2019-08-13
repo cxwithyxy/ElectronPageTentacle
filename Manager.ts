@@ -1,4 +1,4 @@
-import { Worker } from "./Worker"
+import { Worker, Inject_js_handler } from "./index"
 import * as _ from "lodash"
 import pLimit from 'p-limit'
 
@@ -21,9 +21,25 @@ export class Manager
         }
     }
 
-    start()
+
+    /**
+     * 默认初始化worker函数, 建议覆盖后写自己的逻辑
+     *
+     * @memberof Manager
+     */
+    init_worker()
     {
-        
+        this.set_workers([
+            new Worker({
+                width: 800,
+                height: 600,
+            })
+        ])
+        this.workers_do(async (_w) =>
+        {
+            _w.page_init()
+            _w.set_inject_js(new Inject_js_handler())
+        })
     }
 
     set_main_worker(_w: Worker): Manager
