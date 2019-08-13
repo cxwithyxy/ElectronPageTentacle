@@ -28,6 +28,8 @@ describe(`Worker`, function ()
                     return `<script>aaa = true;</script>`
                 }
             })
+
+            return server
         }
 
         class Test_M extends Manager
@@ -41,9 +43,7 @@ describe(`Worker`, function ()
 
         it(`应该一直等待直到页面加载完`, async () =>
         {
-            await server_start(5e3)
-            
-
+            let server = await server_start(5e3)
             await new Test_M().start(async (_w) =>
             {
                 _w.open_url("http://127.0.0.1:8181/")
@@ -51,8 +51,21 @@ describe(`Worker`, function ()
                 let aaa = await _w.exec_js(`aaa`)
                 should(aaa).be.Boolean().and.equal(true)
             })
+            await server.stop()
+        })
 
-
+        it(`超时加载`, async () =>
+        {
+            let server = await server_start(10e3)
+            await new Test_M().start(async (_w) =>
+            {
+                let start_time = +new Date()
+                _w.open_url("http://127.0.0.1:8181/")
+                await _w.wait_page_load(3e3)
+                let now_time = +new Date()
+                should(now_time-start_time).belowOrEqual(5e3)
+            })
+            await server.stop()
         })
     })
 })

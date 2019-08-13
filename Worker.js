@@ -419,11 +419,21 @@ class Worker {
      * @returns
      * @memberof Worker
      */
-    async wait_page_load() {
+    async wait_page_load(timeout = 10e3) {
         this.page_load_lock = true;
+        let timeout_alive = true;
+        (async () => {
+            setTimeout(() => {
+                if (timeout_alive && this.page_load_lock) {
+                    this.page_load_lock = false;
+                    timeout_alive = false;
+                }
+            }, timeout);
+        })();
         while (this.page_load_lock) {
             await sleep_promise_1.default(100);
         }
+        timeout_alive = false;
         return this;
     }
     /**

@@ -249,7 +249,7 @@ export declare class Worker {
      * @returns
      * @memberof Worker
      */
-    wait_page_load(): Promise<this>;
+    wait_page_load(timeout?: number): Promise<this>;
     /**
      * 读取cookies
      *
