@@ -21,6 +21,21 @@ export class Manager
         }
     }
 
+
+    init_worker()
+    {
+        this.set_workers([
+            new Worker({
+                width: 800,
+                height: 600,
+            })
+        ])
+        this.workers_do(async (_w) =>
+        {
+            _w.page_init()
+        })
+    }
+
     start()
     {
         

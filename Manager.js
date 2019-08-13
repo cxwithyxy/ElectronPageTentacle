@@ -5,10 +5,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
     result["default"] = mod;
     return result;
-}
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
-}
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const Worker_1 = require("./Worker");
 const _ = __importStar(require("lodash"));
@@ -24,6 +24,17 @@ class Manager {
         if (_.isUndefined(_w)) {
             this.workers = [];
         }
+    }
+    init_worker() {
+        this.set_workers([
+            new Worker_1.Worker({
+                width: 800,
+                height: 600,
+            })
+        ]);
+        this.workers_do(async (_w) => {
+            _w.page_init();
+        });
     }
     start() {
     }

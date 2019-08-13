@@ -2,6 +2,7 @@ import { Worker } from "./Worker";
 export declare class Manager {
     workers: Worker[];
     constructor(_w?: Worker | Worker[]);
+    init_worker(): void;
     start(): void;
     set_main_worker(_w: Worker): Manager;
     get_main_worker(): Worker;

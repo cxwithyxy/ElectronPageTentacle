@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { BrowserWindow, WebContents } from 'electron';
 import { Inject_js_handler as IJH } from "./Inject_js_handler";
 export declare class Worker {
@@ -256,7 +257,7 @@ export declare class Worker {
      * @returns
      * @memberof Worker
      */
-    read_cookies(filter?: {}): Promise<{}>;
+    read_cookies(filter?: {}): Promise<unknown>;
     /**
      * 读取所有cookie, 你可在接下来的操作中进行持久化存储所有cookie的操作
      *
