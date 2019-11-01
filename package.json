@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "forin_promise": "https://github.com/cxwithyxy/forin_promise.git",
-    "lodash": "4.17.5",
+    "lodash": "4.17.13",
     "p-limit": "^2.2.0",
     "sleep-promise": "^8.0.1"
   },
