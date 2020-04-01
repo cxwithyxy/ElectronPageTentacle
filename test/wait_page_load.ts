@@ -1,7 +1,7 @@
 import should from "should";
 import Hapi from "@hapi/hapi";
 import sleep from "sleep-promise";
-import { Manager, Worker } from "./../index";
+import { Manager, Worker } from "./../src/index";
 import { app } from "electron";
 
 describe(`Worker`, function () 
