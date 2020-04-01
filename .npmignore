@@ -1,0 +1,7 @@
+build/test/
+tsconfig.json
+test/
+dist/
+src/
+.github
+*.md
