@@ -437,6 +437,32 @@ export class Worker
         });
     }
 
+
+    /**
+     * 模拟鼠标输入, 未测试通过, 别用
+     *
+     * @param {("mousePressed" | "mouseReleased" | "mouseMoved" | "mouseWheel")} _type
+     * @param {number} _x
+     * @param {number} _y
+     * @memberof Worker
+     */
+    async mouse_it(_type: "mousePressed" | "mouseReleased" | "mouseMoved" | "mouseWheel", _x: number, _y: number)
+    {
+       
+        await this.wincc.debugger.sendCommand('Input.dispatchMouseEvent', {
+            type: _type,
+            x: _x,
+            y: _y
+        });
+    }
+
+    async IME_type(_s: string)
+    {
+        await this.wincc.debugger.sendCommand('Input.insertText', {
+            text: _s,
+        });
+    }
+
     /**
      * 触摸拖拽
      *
