@@ -4,6 +4,7 @@ import sleep from "sleep-promise"
 import pLimit from 'p-limit'
 import _ from "lodash"
 import forin_promise from 'forin_promise';
+import robotjs from "robotjs"
 
 export class Worker
 {
@@ -458,9 +459,7 @@ export class Worker
 
     async IME_type(_s: string)
     {
-        await this.wincc.debugger.sendCommand('Input.insertText', {
-            text: _s,
-        });
+        robotjs.typeString("abc123");
     }
 
     /**
