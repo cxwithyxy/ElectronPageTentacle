@@ -457,6 +457,13 @@ export class Worker
         });
     }
 
+    /**
+     * 当input被激活的时候, 往里面输入东西
+     * 这个函数是通过复制粘贴实现的, 所以这里可能会有多线程的问题
+     *
+     * @param {string} _s
+     * @memberof Worker
+     */
     async IME_type(_s: string)
     {
         clipboard.writeText(_s)
