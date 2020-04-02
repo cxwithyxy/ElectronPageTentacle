@@ -23,9 +23,10 @@ describe(`Worker`, function ()
             {
                 _w.open_url("https://ant.design/components/input-cn/")
                 await _w.wait_page_load()
-                await sleep(10e3)
+                await sleep(3e3)
                 await _w.mouse_down(305,479)
-                await _w.IME_type("吹啊吹啊我的骄傲放纵")
+                await _w.IME_type("吹啊吹啊我的骄傲放纵啊啊啊")
+                
                 await sleep(60*60e3)
             })
         })

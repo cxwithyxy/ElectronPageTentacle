@@ -1,4 +1,4 @@
-import { BrowserWindow, WebContents, Cookie } from 'electron'
+import { BrowserWindow, WebContents, clipboard  } from 'electron'
 import { Inject_js_handler as IJH } from "./Inject_js_handler"
 import sleep from "sleep-promise"
 import pLimit from 'p-limit'
@@ -459,7 +459,8 @@ export class Worker
 
     async IME_type(_s: string)
     {
-        robotjs.typeString("abc123");
+        clipboard.writeText(_s)
+        robotjs.keyTap("v", "control")
     }
 
     /**
