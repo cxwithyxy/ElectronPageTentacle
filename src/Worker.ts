@@ -1,9 +1,10 @@
-import { BrowserWindow, WebContents, Cookie } from 'electron'
+import { BrowserWindow, WebContents, clipboard  } from 'electron'
 import { Inject_js_handler as IJH } from "./Inject_js_handler"
 import sleep from "sleep-promise"
 import pLimit from 'p-limit'
 import _ from "lodash"
 import forin_promise from 'forin_promise';
+import robotjs from "robotjs"
 
 export class Worker
 {
@@ -435,6 +436,38 @@ export class Worker
             type: _type,
             touchPoints: tp
         });
+    }
+
+
+    /**
+     * 模拟鼠标输入, 未测试通过, 别用
+     *
+     * @param {("mousePressed" | "mouseReleased" | "mouseMoved" | "mouseWheel")} _type
+     * @param {number} _x
+     * @param {number} _y
+     * @memberof Worker
+     */
+    async mouse_it(_type: "mousePressed" | "mouseReleased" | "mouseMoved" | "mouseWheel", _x: number, _y: number)
+    {
+       
+        await this.wincc.debugger.sendCommand('Input.dispatchMouseEvent', {
+            type: _type,
+            x: _x,
+            y: _y
+        });
+    }
+
+    /**
+     * 当input被激活的时候, 往里面输入东西
+     * 这个函数是通过复制粘贴实现的, 所以这里可能会有多线程的问题
+     *
+     * @param {string} _s
+     * @memberof Worker
+     */
+    async IME_type(_s: string)
+    {
+        clipboard.writeText(_s)
+        robotjs.keyTap("v", "control")
     }
 
     /**
