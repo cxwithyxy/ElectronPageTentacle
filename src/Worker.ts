@@ -1,4 +1,4 @@
-import { BrowserWindow, WebContents, clipboard  } from 'electron'
+import { BrowserWindow, WebContents, clipboard, Event } from 'electron'
 import { Inject_js_handler as IJH } from "./Inject_js_handler"
 import sleep from "sleep-promise"
 import pLimit from 'p-limit'
@@ -466,8 +466,21 @@ export class Worker
      */
     async IME_type(_s: string)
     {
-        clipboard.writeText(_s)
-        robotjs.keyTap("v", "control")
+        var chars = String(_s).split('')
+        for(;;)
+        {
+            var ch = chars.shift()
+            await sleep(1000/180)
+            await this.wincc.sendInputEvent(<any>{
+                type: 'char',
+                keyCode: ch
+            })
+            if(chars.length == 0)
+            {
+                break
+            }
+        }
+        
     }
 
     /**
