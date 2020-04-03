@@ -1,8 +1,8 @@
 import should from "should";
 import Hapi from "@hapi/hapi";
 import sleep from "sleep-promise";
-import { Manager, Worker } from "./../src/index";
-import { app } from "electron";
+import { Test_M  } from "./lib/Test_M";
+
 
 describe(`Worker`, function () 
 {
@@ -57,15 +57,6 @@ describe(`Worker`, function ()
             })
 
             return server
-        }
-
-        class Test_M extends Manager
-        {
-            async start(_func: (_w: Worker) => Promise<void>)
-            {
-                this.init_worker()
-                await this.workers_do(_func)
-            }
         }
 
         it(`应该一直等待直到页面加载完`, async () =>
