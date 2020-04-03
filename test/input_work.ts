@@ -21,14 +21,17 @@ describe(`Worker`, function ()
         {
             await new Test_M().start(async (_w) =>
             {
-                _w.open_url("https://ant.design/components/input-cn/")
+                let word = `测试${Math.random() * 10000}数字, 英文aaabbbccc`
+                _w.open_url(`file:///${__dirname}/../../test/html/input_work.html`)
                 await _w.wait_page_load()
-                await sleep(20e3)
-                await _w.mouse_down(305,479)
+                await sleep(2e3)
+                await _w.mouse_down(75,10)
                 await sleep(1e3)
-                await _w.IME_type("啊啊我的aaa啊")
-                
-                await sleep(60*60e3)
+                await _w.IME_type(word)
+                await sleep(2e3)
+                await _w.exec_js(`document.querySelector("#main button").click()`)
+                let page_a_value = await _w.exec_js(`a`)
+                should(page_a_value).equal(word)
             })
         })
     })
