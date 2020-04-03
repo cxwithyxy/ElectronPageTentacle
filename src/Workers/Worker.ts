@@ -5,123 +5,11 @@ import pLimit from 'p-limit'
 import _ from "lodash"
 import forin_promise from 'forin_promise';
 import robotjs from "robotjs"
-import {Worker_garbage_conllection} from "./Worker_garbage_conllection"
+import {Worker_page} from "./Worker_page"
 
-export class Worker extends Worker_garbage_conllection
+export class Worker extends Worker_page
 {
     
-    page_load_lock = false
-    ua!: string
-    inject_js!: IJH
-    
-
-    set_inject_js(_ijh: IJH)
-    {
-        this.inject_js = _ijh
-        return this
-    }
-
-    
-    open_url (url: string): Worker
-    {
-        this.wincc.loadURL(url)
-        return this;
-    }
-
-    show()
-    {
-        // this.win.center()
-    }
-
-    is_show()
-    {
-        return false
-    }
-
-    hide()
-    {
-        // this.win.setPosition(-1920, 0)
-    }
-
-    /**
-     * 初始化worker界面显示
-     *
-     * @returns {Worker}
-     * @memberof Worker
-     */
-    page_init (): Worker
-    {
-        this.win = new BrowserWindow(this.win_settings)
-        // this.win.setSkipTaskbar(true)
-        this.wincc = this.win.webContents;
-        this.ua = this.wincc.getUserAgent();
-        this.init_page_load_lock()
-        this.hide()
-        this.debugger_bridger_init()
-        this.touch_emulation()
-        return this
-    }
-
-    /**
-     * 初始化页面加载控制锁
-     *
-     * @memberof Worker
-     */
-    init_page_load_lock()
-    {
-        this.wincc.on("did-stop-loading", () =>
-        {
-            this.page_load_lock = false
-        })
-    }
-
-    /**
-     * 设置用户UA
-     *
-     * @param {string} ua
-     * @returns {Worker}
-     * @memberof Worker
-     */
-    set_ua (ua: string): Worker
-    {
-        this.wincc.setUserAgent(ua);
-        this.ua = ua;
-        return this;
-    }
-
-    /**
-     * 打开控制台
-     *
-     * @returns {Worker}
-     * @memberof Worker
-     */
-    open_dev(): Worker
-    {
-        this.wincc.openDevTools({mode: "undocked"});
-        return this;
-    }
-
-    /**
-     * 在窗口上下文中运行js代码
-     *
-     * @param {string} js_code
-     * @returns
-     * @memberof Worker
-     */
-    async exec_js(js_code: string)
-    {
-        return await this.wincc.executeJavaScript(
-            this.inject_js.to_code_string(js_code)
-        );
-    }
-
-    // 该函数等待废弃
-    async shine_focus(_when_shine_do: () => Promise<any>)
-    {
-        this.wincc.focus()
-        await sleep(300)
-        await _when_shine_do()
-    }
 
     /**
      * 模拟鼠标移动事件
@@ -197,28 +85,6 @@ export class Worker extends Worker_garbage_conllection
     {
         await this.mouse_down(begin_x, begin_y)
         await this.mouse_up(end_x, end_y)
-    }
-
-    /**
-     * 初始化debugger调试, 便于实现后续功能
-     *
-     * @memberof Worker
-     */
-    debugger_bridger_init()
-    {
-        try
-        {
-            this.wincc.debugger.attach(`1.3`)
-        }
-        catch (err)
-        {
-            console.log('Debugger attach failed : ', err)
-        }
-
-        this.wincc.debugger.on('detach', (event, reason) => 
-        {
-            console.log('Debugger detached due to : ', reason)
-        })
     }
 
     /**
@@ -404,46 +270,7 @@ export class Worker extends Worker_garbage_conllection
         });
     }
 
-    /**
-     * 重新加载窗口页面(刷新)
-     *
-     * @memberof Worker
-     */
-    async reload()
-    {
-        this.wincc.reload()
-        await this.wait_page_load()
-    }
-
-    /**
-     * 等待页面加载完成
-     *
-     * @param {number} [timeout=10e3] 设置超时, 默认10s
-     * @returns
-     * @memberof Worker
-     */
-    async wait_page_load(timeout: number = 10e3)
-    {
-        this.page_load_lock = true
-        let timeout_alive = true
-        ;(async () =>
-        {
-            setTimeout(() => 
-            {
-                if(timeout_alive && this.page_load_lock)
-                {
-                    this.page_load_lock = false
-                    timeout_alive = false
-                }
-            }, timeout);
-        })()
-        while(this.page_load_lock)
-        {
-            await sleep(100)
-        }
-        timeout_alive = false
-        return this
-    }
+    
 
     /**
      * 读取cookies
