@@ -1,181 +1,19 @@
 import { BrowserWindow, WebContents, clipboard, Event } from 'electron'
-import { Inject_js_handler as IJH } from "./Inject_js_handler"
+import { Inject_js_handler as IJH } from "../Inject_js_handler"
 import sleep from "sleep-promise"
 import pLimit from 'p-limit'
 import _ from "lodash"
 import forin_promise from 'forin_promise';
 import robotjs from "robotjs"
+import {Worker_garbage_conllection} from "./Worker_garbage_conllection"
 
-export class Worker
+export class Worker extends Worker_garbage_conllection
 {
-    win!: BrowserWindow
-    wincc!: WebContents
-    win_settings: object
+    
     page_load_lock = false
     ua!: string
     inject_js!: IJH
     
-    /**
-     * 控制worker是否会被垃圾回收
-     *
-     * @memberof Worker
-     */
-    garbage_collection_marker = false
-
-    /**
-     * 当前已存活时间, 超过最大存活时间应该会被垃圾回收
-     *
-     * @memberof Worker
-     */
-    survival_time = 0
-    
-    /**
-     * 最大存活时间
-     *
-     * @memberof Worker
-     */
-    max_survival_time = 60 * 10
-
-    /**
-     * worker存活时间控制句柄
-     *
-     * @static
-     * @type {NodeJS.Timeout}
-     * @memberof Worker
-     */
-    static worker_survival_timeout: NodeJS.Timeout
-
-    /**
-     * 全局的worker储存器, 便于垃圾回收等相关机制获取worker对象
-     *
-     * @static
-     * @type {Array<Worker>}
-     * @memberof Worker
-     */
-    static worker_box: Array<Worker> = []
-    
-    /**
-     * 垃圾回收定时器句柄
-     *
-     * @static
-     * @type {NodeJS.Timeout}
-     * @memberof Worker
-     */
-    static worker_garbage_collection_timeout: NodeJS.Timeout
-    
-    /**
-     * 添加worker实例到全局worker实例数组中
-     *
-     * @static
-     * @param {Worker} _w 要被添加的worker实例
-     * @memberof Worker
-     */
-    static add_worker(_w: Worker)
-    {
-        Worker.worker_box.push(_w)
-        Worker.start_garbage_collection()
-        Worker.start_survival_process()
-    }
-
-    static get_workers()
-    {
-        return Worker.worker_box
-    }
-
-    /**
-     * 启动垃圾回收机制, 每5秒执行一次
-     *
-     * @static
-     * @memberof Worker
-     */
-    static start_garbage_collection()
-    {
-        if(_.isUndefined(Worker.worker_garbage_collection_timeout))
-        {
-            Worker.worker_garbage_collection_timeout = setInterval(() =>
-            {
-                _.remove(Worker.worker_box, (_w: Worker) =>
-                {
-                    if(_w.garbage_collection_marker)
-                    {
-                        try
-                        {
-                            _w.win.close()
-                        }
-                        catch (error){}
-                    }
-                    return _w.garbage_collection_marker
-                })
-            }, 5000)
-            return
-        }
-        
-    }
-
-    /**
-     * 启动存活核算进程
-     *
-     * @static
-     * @memberof Worker
-     */
-    static start_survival_process()
-    {
-        if(!_.isUndefined(Worker.worker_survival_timeout))
-        {
-            return
-        }
-        Worker.worker_survival_timeout = setInterval(async () =>
-        {
-            await Worker.all_worker_do(async (_w) =>
-            {
-                _w.survival_time += 5;
-                if(_w.survival_time >= _w.max_survival_time)
-                {
-                    _w.close()
-                }
-            })
-        }, 5000)
-    }
-
-    /**
-     * 续命
-     *
-     * @param {number} adding_time 要续命多少秒呢
-     * @memberof Worker
-     */
-    give_me_a_life(adding_time: number)
-    {
-        this.max_survival_time = this.survival_time + adding_time
-    }
-
-    /**
-     * 批量操作所有的worker
-     *
-     * @static
-     * @param {(_w: Worker) => Promise<any>} _func
-     * @memberof Worker
-     */
-    static async all_worker_do(_func: (_w: Worker) => Promise<any>)
-    {
-        await forin_promise(
-            Worker.worker_box,
-            async (_v, _k) =>
-            {
-                _func(_v)
-            }
-        )
-    }
-
-    constructor (win_settings: {})
-    {
-        this.win_settings = win_settings;
-        this.win_settings = _.merge(this.win_settings, {
-            webPreferences: {
-                backgroundThrottling: false
-            }
-        })
-        Worker.add_worker(this)
-    }
 
     set_inject_js(_ijh: IJH)
     {
@@ -183,16 +21,7 @@ export class Worker
         return this
     }
 
-    /**
-     * 把Worker置于等待垃圾回收队列中
-     *
-     * @memberof Worker
-     */
-    close()
-    {
-        this.garbage_collection_marker = true
-    }
-
+    
     open_url (url: string): Worker
     {
         this.wincc.loadURL(url)
