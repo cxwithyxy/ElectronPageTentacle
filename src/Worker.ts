@@ -475,7 +475,6 @@ export class Worker
                 type: 'char',
                 keyCode: ch
             })
-            console.log(ch);
             if(chars.length == 0)
             {
                 break
