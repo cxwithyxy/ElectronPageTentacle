@@ -29,7 +29,8 @@
   },
   "scripts": {
     "ts_build": "yarn del-cli ./build && yarn tsc",
-    "test": "yarn ts_build && electron-mocha ./build/test/*.js",
+    "test": "yarn ts_build && electron-mocha",
+    "test_all": "yarn ts_build && electron-mocha ./build/test/*.js",
     "npm_pack": "yarn ts_build -d && for /F %i in ('npm pack') do ( yarn make-dir ./dist && move %i ./dist/electron-page-tentacle.tgz)"
   }
 }
