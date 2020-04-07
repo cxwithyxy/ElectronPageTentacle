@@ -17,12 +17,13 @@ export class Worker_touch extends Worker_mouse
     }
     
     /**
-     * 激活界面触摸模拟
+     * 激活界面触摸模拟【必须在页面加载前调用】
      *
      * @memberof Worker
      */
     async screen_touch_emulation()
     {
+        await this.touch_emulation()
         await this.wincc.debugger.sendCommand('Emulation.setEmitTouchEventsForMouse', {
             enabled: true,
             configuration: "mobile"

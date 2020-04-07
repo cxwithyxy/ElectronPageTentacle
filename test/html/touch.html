@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <link rel="stylesheet" href="swiper.min.css"> 
+    <link rel="stylesheet" href="layout.css">
+    <title>touch test</title>
+    <style>
+        #api,#content{
+            width: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-top: 0 !important;
+        }
+    </style>
+
+</head>
+<body>
+    <script src="swiper.min.js"></script>
+
+    <div id="api">
+        <div id="content">
+            <div class="swiper-container swiper-container-initialized swiper-container-horizontal" id="swiper1">
+                <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+                    <div class="swiper-slide orange-slide swiper-slide-active" style="width: 800px;">
+                        Slide 1</div>
+                    <div class="swiper-slide blue-slide swiper-slide-next" style="width: 800px;">
+                        Slide 2</div>
+                    <div class="swiper-slide red-slide" style="width: 800px;">
+                        Slide 3</div>
+                </div>
+        </div>
+    </div>
+    
+    <script language="javascript">
+    let is_tap = false;
+    var mySwiper = new Swiper('.swiper-container', {
+        simulateTouch : false,//禁止鼠标模拟
+        on:{
+            tap: function(event){
+                is_tap = true
+            },
+        },
+    });
+    </script>
+    <style type="text/css">
+      .swiper-container{
+        --swiper-theme-color: #ff6600;/* 设置Swiper风格 */
+        --swiper-navigation-color: #00ff33;/* 单独设置按钮颜色 */
+        --swiper-navigation-size: 30px;/* 设置按钮大小 */
+      }
+    </style>
+</body>
+</html>

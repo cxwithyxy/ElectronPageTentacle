@@ -22,7 +22,6 @@ export class Worker_page extends Worker_garbage_conllection
         this.init_page_load_lock()
         this.hide()
         this.debugger_bridger_init()
-        // this.touch_emulation()
         return this
     }
 
