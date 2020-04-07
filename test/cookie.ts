@@ -9,6 +9,9 @@ describe(`Worker`, function ()
     this.timeout(10 * 60e3); 
     describe(`cookie`, () => 
     {
+        let cookie_preset = `I am ${Math.random()} Cookie`
+        let cookie_server_get = ""
+        let server_url = `http://127.0.0.1:8181/`
         async function server_start(sleep_time: number = 5e3)
         {
             
@@ -33,10 +36,24 @@ describe(`Worker`, function ()
                 path: '/',
                 handler: async (request, h) =>
                 {
-                    console.log(request.state)
-                    h.state('data', "asdas")
+                    let current_cookie = ""
+                    cookie_server_get = request.state.data
+                    if(cookie_server_get)
+                    {
+                        current_cookie = cookie_server_get
+                    }
+                    else
+                    {
+                        current_cookie = cookie_preset
+                    }
+                    h.state('data', current_cookie)
                     return `
-                    cookie: ${request.state.data}
+                    <h1>
+                    cookie: ${current_cookie}
+                    </h1>
+                    <script>
+                    cookie_value = "${current_cookie}"
+                    </script>
                     `
                     
                 }
@@ -45,20 +62,36 @@ describe(`Worker`, function ()
             return server
         }
 
-        it(`应该一直等待直到页面加载完`, async () =>
+        it(`获得服务器cookie`, async () =>
         {
             let server = await server_start(0)
-            await sleep(5 * 60e3)
-            // await new Test_M().start(async (_w) =>
-            // {
-            //     _w.open_url("http://127.0.0.1:8181/")
-            //     await _w.wait_page_load()
-            //     let a = await _w.exec_js(`a`)
-            //     should(a).be.Boolean().and.equal(true)
-            //     let b = await _w.exec_js(`b`)
-            //     should(b).be.Boolean().and.equal(true)
-            // })
-            // await server.stop()
+            await new Test_M().start(async (_w) =>
+            {
+                _w.open_url(server_url)
+                await _w.wait_page_load()
+                let cookie_from_server = (await _w.get_all_cookie())[0]
+                should(cookie_from_server["value"]).equal(cookie_preset)
+            })
+            await server.stop()
+        })
+
+        it(`设置cookie`, async () =>
+        {
+            let server = await server_start(0)
+            await new Test_M().start(async (_w) =>
+            {
+                _w.open_url(server_url)
+                await _w.wait_page_load()
+                let cookie_from_server = (await _w.get_all_cookie())[0]
+                let client_reset_cookie_value = `${cookie_from_server["value"]}, but change by client`
+                cookie_from_server["value"] = client_reset_cookie_value
+                _w.load_all_cookie(server_url,[cookie_from_server])
+                await _w.reload()
+                let cookie_from_server_second = await _w.exec_js(`cookie_value`)
+                should(cookie_from_server_second).equal(client_reset_cookie_value)
+
+            })
+            await server.stop()
         })
     })
 })
