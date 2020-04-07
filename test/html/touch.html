@@ -36,12 +36,16 @@
     
     <script language="javascript">
     let is_tap = false;
+    let is_touch_move = false;
     var mySwiper = new Swiper('.swiper-container', {
         simulateTouch : false,//禁止鼠标模拟
         on:{
             tap: function(event){
                 is_tap = true
             },
+            sliderMove: function(){
+                is_touch_move = true
+            }
         },
     });
     </script>
