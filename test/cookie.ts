@@ -18,10 +18,12 @@ describe(`Worker`, function ()
             });
             server.state('data', {
                 ttl: null,
-                isSecure: true,
+                encoding: 'none',
+                strictHeader: false,
+                ignoreErrors: false,
+                isSecure: false,
                 isHttpOnly: true,
-                clearInvalid: true,
-                strictHeader: true
+                isSameSite: 'Lax',
             });
         
             await server.start();
@@ -31,11 +33,12 @@ describe(`Worker`, function ()
                 path: '/',
                 handler: async (request, h) =>
                 {
-                    
-                    h.state("data", "adasd")
+                    console.log(request.state)
+                    h.state('data', "asdas")
                     return `
-                    cookie test
+                    cookie: ${request.state.data}
                     `
+                    
                 }
             })
 
