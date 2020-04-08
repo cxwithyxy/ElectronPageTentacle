@@ -5,5 +5,6 @@ export class Test_M extends Manager
     {
         this.init_worker()
         await this.workers_do(_func)
+        await this.close_workers()
     }
 }

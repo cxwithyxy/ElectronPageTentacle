@@ -16,6 +16,16 @@ describe(`Worker`, function ()
                 port: 8181,
                 host: 'localhost'
             });
+
+            server.state('data', {
+                ttl: null,
+                encoding: 'none',
+                strictHeader: false,
+                ignoreErrors: false,
+                isSecure: false,
+                isHttpOnly: true,
+                isSameSite: 'Lax',
+            });
         
             await server.start();
 
