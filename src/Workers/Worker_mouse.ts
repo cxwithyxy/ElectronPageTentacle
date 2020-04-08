@@ -77,6 +77,8 @@ export class Worker_mouse extends Worker_page
     async mouse_drag_drop(begin_x:number, begin_y: number, end_x: number, end_y: number)
     {
         await this.mouse_down(begin_x, begin_y)
+        await this.mouse_move(begin_x, begin_y)
+        await this.mouse_move(end_x, end_y)
         await this.mouse_up(end_x, end_y)
     }
 

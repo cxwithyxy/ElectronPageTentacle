@@ -24,7 +24,6 @@
     "forin_promise": "https://github.com/cxwithyxy/forin_promise.git",
     "lodash": "4.17.5",
     "p-limit": "^2.2.0",
-    "robotjs": "^0.6.0",
     "sleep-promise": "^8.0.1"
   },
   "scripts": {

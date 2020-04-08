@@ -112,12 +112,12 @@ export class Worker_base
         }
         catch (err)
         {
-            console.log('Debugger attach failed : ', err)
+            // console.log('Debugger attach failed : ', err)
         }
 
         this.wincc.debugger.on('detach', (event, reason) => 
         {
-            console.log('Debugger detached due to : ', reason)
+            // console.log('Debugger detached due to : ', reason)
         })
     }
 }

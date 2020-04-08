@@ -1,8 +1,8 @@
 import should from "should";
 import Hapi from "@hapi/hapi";
 import sleep from "sleep-promise";
-import { Manager, Worker } from "./../src/index";
-import { app } from "electron";
+import { Test_M  } from "./lib/Test_M";
+
 
 describe(`Worker`, function () 
 {
@@ -25,20 +25,38 @@ describe(`Worker`, function ()
                 handler: async (request, h) =>
                 {
                     await sleep(sleep_time)
-                    return `<script>aaa = true;</script>`
+                    return `
+                    <script>
+                    a = 0;
+                    b = 0;
+                    </script>
+                    <script src="a.js"></script>
+                    <script src="b.js"></script>
+                    `
+                }
+            })
+
+            server.route({
+                method: 'GET',
+                path: '/a.js',
+                handler: async (request, h) =>
+                {
+                    await sleep(sleep_time + Math.random() * 5e3)
+                    return `a = true;`
+                }
+            })
+
+            server.route({
+                method: 'GET',
+                path: '/b.js',
+                handler: async (request, h) =>
+                {
+                    await sleep(sleep_time + Math.random() * 5e3)
+                    return `b = true;`
                 }
             })
 
             return server
-        }
-
-        class Test_M extends Manager
-        {
-            async start(_func: (_w: Worker) => Promise<void>)
-            {
-                this.init_worker()
-                await this.workers_do(_func)
-            }
         }
 
         it(`应该一直等待直到页面加载完`, async () =>
@@ -48,8 +66,10 @@ describe(`Worker`, function ()
             {
                 _w.open_url("http://127.0.0.1:8181/")
                 await _w.wait_page_load()
-                let aaa = await _w.exec_js(`aaa`)
-                should(aaa).be.Boolean().and.equal(true)
+                let a = await _w.exec_js(`a`)
+                should(a).be.Boolean().and.equal(true)
+                let b = await _w.exec_js(`b`)
+                should(b).be.Boolean().and.equal(true)
             })
             await server.stop()
         })

@@ -17,12 +17,13 @@ export class Worker_touch extends Worker_mouse
     }
     
     /**
-     * 激活界面触摸模拟
+     * 激活界面触摸模拟【必须在页面加载前调用】
      *
      * @memberof Worker
      */
     async screen_touch_emulation()
     {
+        await this.touch_emulation()
         await this.wincc.debugger.sendCommand('Emulation.setEmitTouchEventsForMouse', {
             enabled: true,
             configuration: "mobile"
@@ -86,7 +87,8 @@ export class Worker_touch extends Worker_mouse
         let step_y = distance_y / step;
         let sleep_time = spend_time / step;
         let now_step = 1;
-        while(true)
+        await this.touch_it("touchStart", begin_x, begin_y)
+        for(;;)
         {
             await this.touch_it("touchMove", begin_x + step_x * now_step, begin_y + step_y * now_step)
             await sleep(sleep_time)
@@ -96,6 +98,7 @@ export class Worker_touch extends Worker_mouse
                 break
             }
         }
+        await this.touch_it("touchEnd", end_x, end_y)
     }
 
     /**

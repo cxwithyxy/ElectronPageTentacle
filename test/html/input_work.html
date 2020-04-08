@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@4.1.0/dist/antd.min.css">
+</head>
+<body>
+    <div id="main"></div>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script> 
+    <script src="babel.min.js"></script>
+    <script src="antd.min.js"></script>
+    <script type="text/babel">
+        const { Search } = antd.Input;
+        let a = ""
+        ReactDOM.render(
+        <div>
+            <Search placeholder="input search text" onSearch={value => a = value} enterButton />
+        </div>
+        ,
+        document.getElementById(`main`)
+        );
+    </script>
+</body>
+</html>
