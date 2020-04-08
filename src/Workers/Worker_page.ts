@@ -18,7 +18,7 @@ export class Worker_page extends Worker_garbage_conllection
         this.win = new BrowserWindow(this.win_settings)
         // this.win.setSkipTaskbar(true)
         this.wincc = this.win.webContents;
-        this.ua = this.wincc.getUserAgent();
+        this.ua = this.wincc.userAgent;
         this.init_page_load_lock()
         this.hide()
         this.debugger_bridger_init()
