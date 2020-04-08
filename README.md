@@ -31,7 +31,7 @@ ElectronPageTentacle 讲道理是一个基于 electronjs 的爬虫框架
 #### 安装
 
 ```
-yarn add https://github.com/cxwithyxy/ElectronPageTentacle.git
+yarn add https://github.com/cxwithyxy/ElectronPageTentacle/releases/download/v2.20200401172008/electron-page-tentacle.tgz
 ```
 
 #### 使用方法
