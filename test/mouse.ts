@@ -44,6 +44,21 @@ describe(`Worker`, function ()
                 should(hover_than_clicked).equal(true)
             })
         })
+
+        it(`drag`, async () =>
+        {
+            await new Test_M().start(async (_w) =>
+            {
+                _w.open_url(`file:///${__dirname}/../../test/html/mouse_drag.html`)
+                await sleep(1e3)
+                let slider_value = await _w.exec_js(`slider_value`)
+                should(slider_value).equal(20)
+                await _w.mouse_drag_drop(85, 17, 264, 17)
+                await sleep(1e3)
+                slider_value = await _w.exec_js(`slider_value`)
+                should(slider_value).greaterThan(20)
+            })
+        })
     })
 
 })
