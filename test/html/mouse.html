@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mouse</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@4.1.0/dist/antd.min.css">
+</head>
+<body>
+    <div id="main"></div>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script> 
+    <script src="babel.min.js"></script>
+    <script src="antd.min.js"></script>
+    <script type="text/babel">
+        const { Menu, Dropdown, Button, message, Tooltip, Popover} = antd
+
+        let button_clicked = false
+        let menu_clicked = false
+        let hover_than_clicked = false
+
+        const menu = (
+        <Menu onClick={ () => menu_clicked = true}>
+            <Menu.Item key="1">
+            1st menu item
+            </Menu.Item>
+            <Menu.Item key="2">
+            2nd menu item
+            </Menu.Item>
+            <Menu.Item key="3">
+            3rd item
+            </Menu.Item>
+        </Menu>
+        );
+
+        const content = (
+            <div>
+                <p>Content</p>
+                <p>
+                    <Button onClick={ () => hover_than_clicked = true }>
+                        Button
+                    </Button>
+                </p>
+            </div>
+        );
+
+        ReactDOM.render(
+        
+        <div id="components-dropdown-demo-dropdown-button">
+            <Dropdown overlay={menu}>
+            <Button onClick={ () => button_clicked = true }>
+                Button
+            </Button>
+            </Dropdown>
+            <br />
+            <br />
+            <Popover placement="bottomLeft" content={content} title="Title" trigger="hover">
+                <div><h1>Hover me</h1></div>
+            </Popover>
+        </div>
+        
+        ,
+        document.getElementById(`main`)
+        );
+    </script>
+</body>
+</html>

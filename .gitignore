@@ -1,3 +1,6 @@
 node_modules/
-test/**/*.js
-test/**/*.d.ts
+*.js
+!test/html/**/*.js
+*.d.ts
+dist
+yarn-error.log
