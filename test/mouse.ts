@@ -11,7 +11,6 @@ describe(`Worker`, function ()
         {
             await new Test_M().start(async (_w) =>
             {
-                await _w.screen_touch_emulation()
                 _w.open_url(`file:///${__dirname}/../../test/html/mouse.html`)
                 await sleep(1e3)
                 let button_clicked = await _w.exec_js(`button_clicked`)
@@ -26,6 +25,23 @@ describe(`Worker`, function ()
                 await sleep(1e3)
                 menu_clicked = await _w.exec_js(`menu_clicked`)
                 should(menu_clicked).equal(true)
+            })
+        })
+
+        it(`hover`, async () =>
+        {
+            await new Test_M().start(async (_w) =>
+            {
+                _w.open_url(`file:///${__dirname}/../../test/html/mouse.html`)
+                await sleep(1e3)
+                let hover_than_clicked = await _w.exec_js(`hover_than_clicked`)
+                should(hover_than_clicked).equal(false)
+                await _w.mouse_move(30, 76)
+                await sleep(2e3)
+                await _w.click(52, 209)
+                await sleep(1e3)
+                hover_than_clicked = await _w.exec_js(`hover_than_clicked`)
+                should(hover_than_clicked).equal(true)
             })
         })
     })
