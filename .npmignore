@@ -5,3 +5,4 @@ dist/
 src/
 .github
 *.md
+yarn-error.log
