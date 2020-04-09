@@ -8,7 +8,6 @@ export class Worker_base
     win!: BrowserWindow
     wincc!: WebContents
     win_settings: object
-    ua!: string
     inject_js!: IJH
     
 
