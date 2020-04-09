@@ -13,17 +13,7 @@ export class Worker_cookie extends Worker_type_input
      */
     async read_cookies(filter = {})
     {
-        return new Promise((succ, fail) =>
-        {
-            this.wincc.session.cookies.get(filter , (e, the_cookie) =>
-            {
-                if(e)
-                {
-                    fail(e)
-                }
-                succ(the_cookie)
-            })
-        })
+            return await this.wincc.session.cookies.get(filter)
          
     }
     
@@ -66,13 +56,7 @@ export class Worker_cookie extends Worker_type_input
             {
                 return new Promise((succ) =>
                 {
-                    this.wincc.session.cookies.set(
-                        v,
-                        ()=>
-                        {
-                            succ()
-                        }
-                    )
+                    this.wincc.session.cookies.set(v)
                 })
             }))
         })

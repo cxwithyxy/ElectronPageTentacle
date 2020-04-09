@@ -1,6 +1,6 @@
 {
   "name": "electron-page-tentacle",
-  "version": "2.20200401172008.0",
+  "version": "3.20200409141753.0",
   "main": "build/src/index.js",
   "repository": "https://github.com/cxwithyxy/ElectronPageTentacle.git",
   "author": "chenxuan <523764720@qq.com>",
@@ -13,8 +13,8 @@
     "@types/p-limit": "^2.2.0",
     "@types/should": "^13.0.0",
     "del-cli": "^3.0.0",
-    "electron": "5.0.13",
-    "electron-mocha": "^8.1.1",
+    "electron": "8.2.1",
+    "electron-mocha": "8.2.1",
     "electron-rebuild": "^1.10.1",
     "make-dir-cli": "^2.0.0",
     "should": "^13.2.3",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "forin_promise": "https://github.com/cxwithyxy/forin_promise.git",
-    "lodash": "4.17.13",
+    "lodash": "^4.17.15",
     "p-limit": "^2.2.0",
     "sleep-promise": "^8.0.1"
   },

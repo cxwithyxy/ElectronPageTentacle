@@ -120,7 +120,7 @@ export class Manager
             let temp_worker = new Worker(setting)
             temp_worker.set_inject_js(base_worker.inject_js)
             temp_worker.page_init()
-            temp_worker.set_ua(base_worker.ua)
+            temp_worker.set_ua(base_worker.get_ua())
             temp_worker.open_url(current_url)
             this.add_worker(temp_worker)
         }
