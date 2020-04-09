@@ -1,6 +1,6 @@
 {
   "name": "electron-page-tentacle",
-  "version": "2.20200401172008.0",
+  "version": "3.20200409141753.0",
   "main": "build/src/index.js",
   "repository": "https://github.com/cxwithyxy/ElectronPageTentacle.git",
   "author": "chenxuan <523764720@qq.com>",
