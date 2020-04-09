@@ -8,7 +8,6 @@ export class Worker_base
     win!: BrowserWindow
     wincc!: WebContents
     win_settings: object
-    ua!: string
     inject_js!: IJH
     
 
@@ -60,9 +59,20 @@ export class Worker_base
      */
     set_ua (ua: string): Worker_base
     {
-        this.wincc.setUserAgent(ua);
-        this.ua = ua;
+        this.wincc.userAgent = ua
         return this;
+    }
+
+    
+    /**
+     * 获取用户UA
+     *
+     * @returns {string}
+     * @memberof Worker_base
+     */
+    get_ua(): string
+    {
+        return this.wincc.userAgent
     }
     
     /**

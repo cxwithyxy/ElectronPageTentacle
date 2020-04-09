@@ -26,7 +26,7 @@ ElectronPageTentacle 讲道理是一个基于 electronjs 的爬虫框架
 
 心情不好，不写了！反正又没有钱，写教程是不可能写教程的了！！！
 
-注意：请使用 electron 5.0.13 版本
+注意：请使用 electron 8.2.1 版本
 
 #### 安装
 
