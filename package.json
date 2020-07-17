@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "forin_promise": "https://github.com/cxwithyxy/forin_promise.git",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "p-limit": "^2.2.0",
     "sleep-promise": "^8.0.1"
   },
