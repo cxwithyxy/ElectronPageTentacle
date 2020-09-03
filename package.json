@@ -6,7 +6,7 @@
   "author": "chenxuan <523764720@qq.com>",
   "license": "MIT",
   "devDependencies": {
-    "@hapi/hapi": "^18.3.1",
+    "@hapi/hapi": "^19.1.1",
     "@types/hapi__hapi": "^18.2.5",
     "@types/lodash": "4.14.108",
     "@types/mocha": "^5.2.7",
